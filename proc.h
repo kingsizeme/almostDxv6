@@ -66,30 +66,31 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  struct sys_cnt *proc_cnt;
 };
 
 struct sys_cnt {
-  int SYS_fork    =0;
-  int SYS_exit    =0;
-  int SYS_wait    =0;
-  int SYS_pipe    =0;
-  int SYS_read    =0;
-  int SYS_kill    =0;
-  int SYS_exec    =0;
-  int SYS_fstat   =0;
-  int SYS_chdir   =0;
-  int SYS_dup     =0;
-  int SYS_getpid  =0;
-  int SYS_sbrk    =0;
-  int SYS_sleep   =0;
-  int SYS_uptime  =0;
-  int SYS_open    =0;
-  int SYS_write   =0;
-  int SYS_mknod   =0;
-  int SYS_unlink  =0;
-  int SYS_link    =0;
-  int SYS_mkdir   =0;
-  int SYS_close   =0;
+  int SYS_fork_cnt    ;
+  int SYS_exit_cnt    ;
+  int SYS_wait_cnt    ;
+  int SYS_pipe_cnt    ;
+  int SYS_read_cnt    ;
+  int SYS_kill_cnt    ;
+  int SYS_exec_cnt    ;
+  int SYS_fstat_cnt   ;
+  int SYS_chdir_cnt   ;
+  int SYS_dup_cnt     ;
+  int SYS_getpid_cnt  ;
+  int SYS_sbrk_cnt    ;
+  int SYS_sleep_cnt   ;
+  int SYS_uptime_cnt  ;
+  int SYS_open_cnt    ;
+  int SYS_write_cnt   ;
+  int SYS_mknod_cnt   ;
+  int SYS_unlink_cnt  ;
+  int SYS_link_cnt    ;
+  int SYS_mkdir_cnt   ;
+  int SYS_close_cnt   ;
 };
 
 // Process memory is laid out contiguously, low addresses first:
