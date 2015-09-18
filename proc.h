@@ -68,6 +68,30 @@ struct proc {
   char name[16];               // Process name (debugging)
 };
 
+struct sys_cnt {
+  int SYS_fork    =0;
+  int SYS_exit    =0;
+  int SYS_wait    =0;
+  int SYS_pipe    =0;
+  int SYS_read    =0;
+  int SYS_kill    =0;
+  int SYS_exec    =0;
+  int SYS_fstat   =0;
+  int SYS_chdir   =0;
+  int SYS_dup     =0;
+  int SYS_getpid  =0;
+  int SYS_sbrk    =0;
+  int SYS_sleep   =0;
+  int SYS_uptime  =0;
+  int SYS_open    =0;
+  int SYS_write   =0;
+  int SYS_mknod   =0;
+  int SYS_unlink  =0;
+  int SYS_link    =0;
+  int SYS_mkdir   =0;
+  int SYS_close   =0;
+};
+
 // Process memory is laid out contiguously, low addresses first:
 //   text
 //   original data and bss
