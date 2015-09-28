@@ -88,3 +88,16 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+
+int
+sys_getcount(void)
+{
+	int sys_num;
+	if(argint(0,&sys_num) < 0)
+		return -1;
+	int ret;
+	ret = proc->proc_cnt[sys_num-1];
+	printf("getcount_invoked_with: %d\n",ret);
+	return ret;
+}
