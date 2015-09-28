@@ -98,6 +98,7 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
+extern int sys_getcount(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -121,15 +122,35 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_getcount]    sys_getcount
+//getcount is 22 in the array. 
+//should be syscalls[21]
 };
+
+int init_checker = -1;
 
 void
 syscall(void)
 {
+
+  if(init_checker == -1)
+  {
+    int i = 0;
+	for(i = 0; i < 22; i++)
+	{
+		proc->proc_cnt[i] = 0;
+	}
+  }
+
   int num;
 
   num = proc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
+	  //check if getcount is called
+    cprintf("%d : syscall num check\n",
+            num);
+	//add to counter each time for each system call invoked
+	proc->proc_cnt[num-1] += 1;
     proc->tf->eax = syscalls[num]();
   } else {
     cprintf("%d %s: unknown sys call %d\n",
