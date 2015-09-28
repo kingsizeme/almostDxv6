@@ -14,6 +14,7 @@ struct cpu {
   // Cpu-local storage variables; see below
   struct cpu *cpu;
   struct proc *proc;           // The currently-running process.
+  
 };
 
 extern struct cpu cpus[NCPU];
@@ -70,27 +71,7 @@ struct proc {
 };
 
 struct sys_cnt {
-  int SYS_fork_cnt    ;
-  int SYS_exit_cnt    ;
-  int SYS_wait_cnt    ;
-  int SYS_pipe_cnt    ;
-  int SYS_read_cnt    ;
-  int SYS_kill_cnt    ;
-  int SYS_exec_cnt    ;
-  int SYS_fstat_cnt   ;
-  int SYS_chdir_cnt   ;
-  int SYS_dup_cnt     ;
-  int SYS_getpid_cnt  ;
-  int SYS_sbrk_cnt    ;
-  int SYS_sleep_cnt   ;
-  int SYS_uptime_cnt  ;
-  int SYS_open_cnt    ;
-  int SYS_write_cnt   ;
-  int SYS_mknod_cnt   ;
-  int SYS_unlink_cnt  ;
-  int SYS_link_cnt    ;
-  int SYS_mkdir_cnt   ;
-  int SYS_close_cnt   ;
+	int counters[22];
 };
 
 // Process memory is laid out contiguously, low addresses first:
