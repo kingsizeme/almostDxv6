@@ -70,28 +70,6 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
-  p->proc_cnt->SYS_fork_cnt = 0 ;
-  p->proc_cnt->SYS_exit_cnt = 0 ;
-  p->proc_cnt->SYS_wait_cnt = 0 ;
-  p->proc_cnt->SYS_pipe_cnt = 0 ;
-  p->proc_cnt->SYS_read_cnt = 0 ;
-  p->proc_cnt->SYS_kill_cnt = 0 ;
-  p->proc_cnt->SYS_exec_cnt = 0 ;
-  p->proc_cnt->SYS_fstat_cnt = 0;
-  p->proc_cnt->SYS_chdir_cnt = 0;
-  p->proc_cnt->SYS_dup_cnt   = 0;
-  p->proc_cnt->SYS_getpid_cnt = 0;
-  p->proc_cnt->SYS_sbrk_cnt  = 0;
-  p->proc_cnt->SYS_sleep_cnt = 0;
-  p->proc_cnt->SYS_uptime_cnt = 0;
-  p->proc_cnt->SYS_open_cnt  = 0;
-  p->proc_cnt->SYS_write_cnt = 0;
-  p->proc_cnt->SYS_mknod_cnt = 0;
-  p->proc_cnt->SYS_unlink_cnt = 0;
-  p->proc_cnt->SYS_link_cnt  = 0;
-  p->proc_cnt->SYS_mkdir_cnt = 0;
-  p->proc_cnt->SYS_close_cnt = 0;
-
   return p;
 }
 
@@ -122,6 +100,12 @@ userinit(void)
   p->cwd = namei("/");
 
   p->state = RUNNABLE;
+  
+  int i = 0;
+  for(i = 0; i < 22; i++)
+  {
+	p->proc->proc_cnt[i] = 0;
+  }
 }
 
 // Grow current process's memory by n bytes.
@@ -200,6 +184,13 @@ exit(void)
       fileclose(proc->ofile[fd]);
       proc->ofile[fd] = 0;
     }
+  }
+  
+  //re-init getcount table
+  int i = 0;
+  for(i = 0; i < 22; i++)
+  {
+	proc->proc_cnt[i] = 0;
   }
 
   iput(proc->cwd);
