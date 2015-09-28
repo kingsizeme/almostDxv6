@@ -122,35 +122,33 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-[SYS_getcount]    sys_getcount
-//getcount is 22 in the array. 
-//should be syscalls[21]
+[SYS_getcount] sys_getcount,
 };
-
-int init_checker = -1;
 
 void
 syscall(void)
 {
 
-  if(init_checker == -1)
-  {
-    int i = 0;
-	for(i = 0; i < 22; i++)
-	{
-		proc->proc_cnt[i] = 0;
-	}
-  }
-
   int num;
 
   num = proc->tf->eax;
+
+  int t;
+  t = proc->try_init;
+  if(t==-1)
+  {
+    //cprintf("sys_getcount init in process: num %d\n", num);
+    cprintf("sys_getcount init in process: %d\n", proc->pid);
+    t = 1;
+    int i;
+    for(i = 0; i < 22; i++)
+    {
+      proc->counters[i] = 0;
+    }
+  }
+
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
-	  //check if getcount is called
-    cprintf("%d : syscall num check\n",
-            num);
-	//add to counter each time for each system call invoked
-	proc->proc_cnt[num-1] += 1;
+    proc->counters[num-1] ++;
     proc->tf->eax = syscalls[num]();
   } else {
     cprintf("%d %s: unknown sys call %d\n",

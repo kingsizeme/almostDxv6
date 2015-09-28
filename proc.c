@@ -99,13 +99,9 @@ userinit(void)
   safestrcpy(p->name, "initcode", sizeof(p->name));
   p->cwd = namei("/");
 
+  p->try_init = -1;
+
   p->state = RUNNABLE;
-  
-  int i = 0;
-  for(i = 0; i < 22; i++)
-  {
-	p->proc->proc_cnt[i] = 0;
-  }
 }
 
 // Grow current process's memory by n bytes.
@@ -184,13 +180,6 @@ exit(void)
       fileclose(proc->ofile[fd]);
       proc->ofile[fd] = 0;
     }
-  }
-  
-  //re-init getcount table
-  int i = 0;
-  for(i = 0; i < 22; i++)
-  {
-	proc->proc_cnt[i] = 0;
   }
 
   iput(proc->cwd);

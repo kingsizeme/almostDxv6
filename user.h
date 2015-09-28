@@ -22,7 +22,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int getcount(int);//getcount should take int and return int, as specified.
+int getcount(int);
 
 // ulib.c
 int stat(char*, struct stat*);

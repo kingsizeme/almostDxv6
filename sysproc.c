@@ -89,15 +89,16 @@ sys_uptime(void)
   return xticks;
 }
 
-
+//def of getcount
 int
 sys_getcount(void)
 {
-	int sys_num;
-	if(argint(0,&sys_num) < 0)
-		return -1;
-	int ret;
-	ret = proc->proc_cnt[sys_num-1];
-	printf("getcount_invoked_with: %d\n",ret);
-	return ret;
+  int n;
+
+  if(argint(0, &n) < 0)
+    return -1;
+
+  cprintf("sys_getcount called with id : %d\n", n);
+
+  return proc->counters[n-1];
 }
