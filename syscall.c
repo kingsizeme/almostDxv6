@@ -98,7 +98,19 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int sys_getcount(void);
+//def of getcount
+int
+sys_getcount(void)
+{
+  int n;
+
+  if(argint(0, &n) < 0)
+    return -1;
+
+  //cprintf("sys_getcount called with id : %d\n", n);
+
+  return proc->counters[n-1];
+}
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -138,7 +150,7 @@ syscall(void)
   if(t==-1)
   {
     //cprintf("sys_getcount init in process: num %d\n", num);
-    cprintf("sys_getcount init in process: %d\n", proc->pid);
+    //cprintf("sys_getcount init in process: %d\n", proc->pid);
     t = 1;
     int i;
     for(i = 0; i < 22; i++)

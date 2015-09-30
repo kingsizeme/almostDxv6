@@ -88,17 +88,3 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
-
-//def of getcount
-int
-sys_getcount(void)
-{
-  int n;
-
-  if(argint(0, &n) < 0)
-    return -1;
-
-  cprintf("sys_getcount called with id : %d\n", n);
-
-  return proc->counters[n-1];
-}

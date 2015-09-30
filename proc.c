@@ -174,6 +174,9 @@ exit(void)
   if(proc == initproc)
     panic("init exiting");
 
+  //reinitiate counters
+  proc->try_init = -1;
+
   // Close all open files.
   for(fd = 0; fd < NOFILE; fd++){
     if(proc->ofile[fd]){
