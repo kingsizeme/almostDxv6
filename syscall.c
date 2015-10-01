@@ -147,20 +147,21 @@ syscall(void)
 
   int t;
   t = proc->try_init;
-  if(t==-1)
+  if(t==-1) // Checks if the structure has been initialized
   {
     //cprintf("sys_getcount init in process: num %d\n", num);
     //cprintf("sys_getcount init in process: %d\n", proc->pid);
-    t = 1;
+    
+    proc->try_init = 1; // mark the data structure as initialized
     int i;
-    for(i = 0; i < 22; i++)
+    for(i = 0; i < 22; i++) // initialize all counters' value to 0
     {
-      proc->counters[i] = 0;
+      proc->counters[i] = 0; 
     }
   }
 
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
-    proc->counters[num-1] ++;
+    proc->counters[num-1] ++; // update counter value when a system call is triggered
     proc->tf->eax = syscalls[num]();
   } else {
     cprintf("%d %s: unknown sys call %d\n",
