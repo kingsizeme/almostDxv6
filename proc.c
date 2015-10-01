@@ -147,6 +147,7 @@ fork(void)
   np->sz = proc->sz;
   np->parent = proc;
   *np->tf = *proc->tf;
+  np->try_init = -1; // initialize data structure for new process
 
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
@@ -174,7 +175,7 @@ exit(void)
   if(proc == initproc)
     panic("init exiting");
 
-  //reinitiate counters
+  //reinitialize counters upon exit
   proc->try_init = -1;
 
   // Close all open files.
@@ -416,6 +417,10 @@ kill(int pid)
       // Wake process from sleep if necessary.
       if(p->state == SLEEPING)
         p->state = RUNNABLE;
+      //Note that re-initialization will not be carried out when kill command is sent to a process
+      //because the process will not terminate upon receiving the signal
+      //rather, it would run till end, return to user space and exit()
+      //therefore, exit() should be the only place where the data structure is re-initialized
       release(&ptable.lock);
       return 0;
     }
