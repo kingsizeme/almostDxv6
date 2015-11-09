@@ -1,0 +1,139 @@
+v0.1-------------------
+Initial Stash Size:50
+Number of disc per bucket:10
+Number of frolfers:5
+Frolfer  0  calling for bucket
+Frolfer  0  got  10  discs; Stash =  40
+Frolfer  0  threw disc  0
+Frolfer  0  threw disc  1
+Frolfer  0  threw disc  2
+Frolfer  0  threw disc  3
+Frolfer  0  threw disc  4
+Frolfer  0  threw disc  5
+Frolfer  0  threw disc  6
+Frolfer  0  threw disc  7
+Frolfer  0  threw disc  8
+Frolfer  0  threw disc  9
+Frolfer  1  calling for bucket
+Frolfer  1  got  10  discs; Stash =  30
+Frolfer  1  threw disc  0
+Frolfer  1  threw disc  1
+Frolfer  1  threw disc  2
+Frolfer  1  threw disc  3
+Frolfer  1  threw disc  4
+Frolfer  1  threw disc  5
+Frolfer  1  threw disc  6
+Frolfer  1  threw disc  7
+Frolfer  1  threw disc  8
+Frolfer  1  threw disc  9
+Frolfer  1  calling for bucket
+Frolfer  1  got  10  discs; Stash =  20
+Frolfer  1  threw disc  0
+Frolfer  1  threw disc  1
+Frolfer  1  threw disc  2
+Frolfer  0  calling for bucket
+Frolfer  0  got  10  discs; Stash =  10
+Frolfer  0  threw disc  0
+Frolfer  0  threw disc  1
+Frolfer  0  threw disc  2
+Frolfer  0  threw disc  3
+Frolfer  0  threw disc  4
+Frolfer  0  threw disc  5
+Frolfer  0  threw disc  6
+Frolfer  0  threw disc  7
+Frolfer  0  threw disc  8
+Frolfer  0  threw disc  9
+Frolfer  0  calling for bucket
+Frolfer  0  got  10  discs; Stash =  0
+Frolfer  0  threw disc  0
+Frolfer  0  threw disc  1
+Frolfer  1  threw disc  3
+Frolfer  1  threw disc  4
+Frolfer  1  threw disc  5
+Frolfer  1  threw disc  6
+Frolfer  0  threw disc  2
+Frolfer  1  threw disc  7
+Frolfer  1  threw disc  8
+Frolfer  1  threw disc  9
+Frolfer  0  threw disc  3
+Frolfer  1  calling for bucket
+Frolfer  0  threw disc  4
+Frolfer  0  threw disc  5
+Frolfer  0  threw disc  6
+Frolfer  0  threw disc  7
+Frolfer  0  threw disc  8
+Frolfer  0  threw disc  9
+trying to get cart
+Total Discs:  50
+################################################################################
+Stash =  0 ; Cart entering field
+Cart done, gathered  50  discs; Stash =  50
+################################################################################
+Frolfer  1  got  10  discs; Stash =  40
+Frolfer  1  threw disc  0
+Frolfer  2  calling for bucket
+Frolfer  2  got  10  discs; Stash =  30
+Frolfer  1  threw disc  1
+Frolfer  2  threw disc  0
+Frolfer  1  threw disc  2
+Frolfer  1  threw disc  3
+Frolfer  1  threw disc  4
+Frolfer  1  threw disc  5
+Frolfer  1  threw disc  6
+Frolfer  1  threw disc  7
+Frolfer  1  threw disc  8
+Frolfer  1  threw disc  9
+Frolfer  1  calling for bucket
+Frolfer  1  got  10  discs; Stash =  20
+Frolfer  1  threw disc  0
+Frolfer  1  threw disc  1
+Frolfer  1  threw disc  2
+Frolfer  1  threw disc  3
+Frolfer  1  threw disc  4
+Frolfer  1  threw disc  5
+Frolfer  1  threw disc  6
+Frolfer  1  threw disc  7
+Frolfer  1  threw disc  8
+Frolfer  1  threw disc  9
+Frolfer  1  calling for bucket
+Frolfer  1  got  10  discs; Stash =  10
+Frolfer  1  threw disc  0
+Frolfer  1  threw disc  1
+Frolfer  1  threw disc  2
+Frolfer  1  threw disc  3
+Frolfer  1  threw disc  4
+Frolfer  1  threw disc  5
+Frolfer  1  threw disc  6
+Frolfer  1  threw disc  7
+Frolfer  1  threw disc  8
+Frolfer  1  threw disc  9
+Frolfer  1  calling for bucket
+Frolfer  1  got  10  discs; Stash =  0
+Frolfer  1  threw disc  0
+Frolfer  1  threw disc  1
+Frolfer  1  threw disc  2
+Frolfer  1  threw disc  3
+Frolfer  1  threw disc  4
+Frolfer  1  threw disc  5
+Frolfer  1  threw disc  6
+Frolfer  1  threw disc  7
+Frolfer  1  threw disc  8
+Frolfer  1  threw disc  9
+Frolfer  1  calling for bucket
+trying to get cart
+Total Discs:  50
+################################################################################
+Stash =  0 ; Cart entering field
+Cart done, gathered  41  discs; Stash =  41
+################################################################################
+Frolfer  1  got  10  discs; Stash =  31
+Frolfer  1  threw disc  0
+Frolfer  4  calling for bucket
+Frolfer  2  threw disc  1
+Frolfer  1  threw disc  1
+Frolfer  4  got  10  discs; Stash =  21
+Frolfer  2  threw disc  2
+Frolfer  1  threw disc  2
+Frolfer  4  threw disc  0
+Frolfer  2  threw disc  3
+Frolfer  1  threw disc  3
