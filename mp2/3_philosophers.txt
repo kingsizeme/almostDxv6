@@ -1,9 +1,32 @@
-Running dining philosophers simulation:  10  philosophers,  100  meals each
-finished phils:  10
-1. Footman solution, time elapsed:  1.1563249732501857
-lefty finished phils:  10
-2. Left_handed solution, time elapsed:  0.7680245850250649
-tanenbaum finished phils:  10
-3. Tanenbaum's solution, time elapsed:  0.7204496876836242
+Running dining philosophers simulation:  20  philosophers,  1000  meals each
+1. Footman solution, time elapsed:  8.86498208778929
+2. Left_handed solution, time elapsed:  6.1998709345782
+3. Tanenbaum's solution, time elapsed:  8.392826733733928
 
-didn't got enough time to run 20/1000...
+Running dining philosophers simulation:  20  philosophers,  1000  meals each
+1. Footman solution, time elapsed:  7.354730196390701
+2. Left_handed solution, time elapsed:  6.17904812326988
+3. Tanenbaum's solution, time elapsed:  7.979605268503546
+
+Running dining philosophers simulation:  20  philosophers,  1000  meals each
+1. Footman solution, time elapsed:  7.942817346769024
+2. Left_handed solution, time elapsed:  7.453192829641769
+3. Tanenbaum's solution, time elapsed:  6.1928984937663305
+
+
+There are multiple results regarding this particular set of parameters.
+The patterns are mixed, a potential cause might be that the script got random processer time.
+In most cases, however, left-handed solution is faster than footman and Tanebaum's solution; footman is slowest in general.
+Tanebaum's solution, however, as can be observed from the above outputs, can be the fastest; but in general, it's faster than footman.
+
+The left hand is faster probably due to it has a guaranteed "eat" for the lefty (in my case the phiolosophers P-1).
+The footman, however, might need to run till last guy and got locked out (as Semaphore is P-1, meaning only P-2 phiolosophers can be on the table
+at the same time).
+Tanebum, meanwhile, is comparatively unstable. It was supposed to be the fastest (and so it is in some cases).
+[assume it's the fastest...]
+Tanebum's solution's efficiency is due to the fact that, in the solution, phiolosophers cannot only eat when he gets the turn,
+but also when his neighbor finishes eating.This allows for much higher concurrency than previous solutions and is therefore faster
+then them as well.
+
+*the fact that Tanebum is not consistantly the fastest is wierd... could be system is doing something else. 
+*but the script takes up only 0.7Mb on my laptop
