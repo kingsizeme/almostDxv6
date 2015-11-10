@@ -52,7 +52,86 @@ def right(i):
     return (i+1) % P
 #--------------------------------
 
+#-The "footman" solution---------
+#counts all Ps time
+def footman_solution(pid):
+    global counter_foot
+    global M
+    global done_phils_foot
+    while done_phils_foot != P:
+        #if there are philosophers still need to eat, then continue
+        if (counter_foot[pid] != M):
+            get_forks(pid)
+            counter_foot[pid] += 1
+            if(counter_foot[pid] == M):
+                done_phils_foot += 1
+            put_forks(pid)
+        else:
+            pass
+    
+def get_forks(i):
+    footman.acquire()
+    fork_foot[right(i)].acquire()
+    fork_foot[left(i)].acquire()
+    
+def put_forks(i):
+    fork_foot[right(i)].release()
+    fork_foot[left(i)].release()
+    footman.release()
 
+def totime_footman():
+    global P
+    global done_phils_foot
+    ts = [Thread(target=footman_solution,args=[i]) for i in range(P)]
+    for t in ts: t.start()
+    for t in ts: t.join()
+    print ("finished phils: ", done_phils_foot)
+
+timer_1 = Timer(totime_footman)
+print ("1. Footman solution, time elapsed: ",timer_1.timeit(1))   
+#--------------------------------
+
+#The "left-handed philosopher" solution
+def left_handed_solution(pid):
+    global counter_lefty
+    global M
+    global done_phils_lefty
+    while done_phils_lefty != P:
+        if(counter_lefty[pid] != M):
+            if pid == P - 1: #one and only one of the philos is lefty
+                get_lefti_forks(pid)
+            else:
+                get_righty_forks(pid)
+            counter_lefty[pid] += 1
+            if (counter_lefty[pid] == M):
+                done_phils_lefty += 1   
+            put_forks(pid)
+        else:
+            pass
+            
+def get_righty_forks(i):
+    fork_lefty[right(i)].acquire()
+    fork_lefty[left(i)].acquire()
+
+def get_lefti_forks(i):
+    fork_lefty[left(i)].acquire()
+    fork_lefty[right(i)].acquire()
+
+def put_forks(i): #no difference between lefty and righty...
+    fork_lefty[right(i)].release()
+    fork_lefty[left(i)].release()
+    
+def totime_left_handed():
+    global P
+    global done_phils_lefty
+    ts = [Thread(target=left_handed_solution,args=[i]) for i in range(P)]
+    for t in ts: t.start()
+    for t in ts: t.join()
+    print ("lefty finished phils: ", done_phils_lefty)
+
+timer_2 = Timer(totime_left_handed)
+print ("2. Left_handed solution, time elapsed: ",timer_2.timeit(1))
+#--------------------------------
 
 #--The Tanenbaum solution--------
 def tanenbaum_solution(pid):
