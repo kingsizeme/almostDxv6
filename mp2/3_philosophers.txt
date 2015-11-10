@@ -1,0 +1,9 @@
+Running dining philosophers simulation:  10  philosophers,  100  meals each
+finished phils:  10
+1. Footman solution, time elapsed:  1.1563249732501857
+lefty finished phils:  10
+2. Left_handed solution, time elapsed:  0.7680245850250649
+tanenbaum finished phils:  10
+3. Tanenbaum's solution, time elapsed:  0.7204496876836242
+
+didn't got enough time to run 20/1000...
