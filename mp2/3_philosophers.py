@@ -66,6 +66,7 @@ def footman_solution(pid):
             counter_foot[pid] += 1
             if(counter_foot[pid] == M):
                 done_phils_foot += 1
+                #print ("done added", done_phils_foot)
             put_forks(pid)
         else:
             pass
@@ -86,7 +87,7 @@ def totime_footman():
     ts = [Thread(target=footman_solution,args=[i]) for i in range(P)]
     for t in ts: t.start()
     for t in ts: t.join()
-    print ("finished phils: ", done_phils_foot)
+    #print ("finished phils: ", done_phils_foot)
 
 timer_1 = Timer(totime_footman)
 print ("1. Footman solution, time elapsed: ",timer_1.timeit(1))   
@@ -106,6 +107,7 @@ def left_handed_solution(pid):
             counter_lefty[pid] += 1
             if (counter_lefty[pid] == M):
                 done_phils_lefty += 1   
+                #print ("done added", done_phils_lefty)
             put_forks(pid)
         else:
             pass
@@ -128,7 +130,7 @@ def totime_left_handed():
     ts = [Thread(target=left_handed_solution,args=[i]) for i in range(P)]
     for t in ts: t.start()
     for t in ts: t.join()
-    print ("lefty finished phils: ", done_phils_lefty)
+    #print ("lefty finished phils: ", done_phils_lefty)
 
 timer_2 = Timer(totime_left_handed)
 print ("2. Left_handed solution, time elapsed: ",timer_2.timeit(1))
@@ -141,14 +143,15 @@ def tanenbaum_solution(pid):
     global done_phils_Tanenbaums
     global state
     while done_phils_Tanenbaums != P:
-        if (counter_Tanenbaums[pid] == M):
-            pass
-        else:
+        if(counter_Tanenbaums[pid] != M):
             get_Tane_fork(pid)
-            if (state[pid] == "eating"):
+            if state[pid] == "eating" :
                 if (counter_Tanenbaums[pid] == M):
                     done_phils_Tanenbaums += 1  
+                    #print ("done added", done_phils_Tanenbaums)
                 put_Tane_fork(pid)
+        else:
+            pass
 
 def get_Tane_fork(i):
     mutex.acquire()
@@ -167,6 +170,7 @@ def put_Tane_fork(i):
 # Check state : check if the philosopher can eat
 def test(i):
     global state
+    global counter_Tanenbaums
     if (state[i] == "hungry" and state[left(i)] != "eating" and state[right(i)] != "eating"):
         state[i] = "eating"
         counter_Tanenbaums[i] += 1
@@ -177,7 +181,7 @@ def totime_tanenbaum():
     ts = [Thread(target=tanenbaum_solution,args=[i]) for i in range(P)]
     for t in ts: t.start()
     for t in ts: t.join()
-    print ("tanenbaum finished phils: ", done_phils_Tanenbaums)
+    #print ("tanenbaum finished phils: ", done_phils_Tanenbaums)
 
 timer_3 = Timer(totime_tanenbaum)
 print("3. Tanenbaum's solution, time elapsed: ", timer_3.timeit(1))
