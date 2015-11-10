@@ -1,17 +1,18 @@
 from __future__ import print_function
 from threading import Semaphore, Lock, Thread
 from collections import deque
-from random import random, randint
+import random
 from time import sleep
 import sys
 import logging
 
-#Semaphores Definition
+#-----Semaphores-----------------
 can_throw = Semaphore(0)
 cart_go = Semaphore(0)
 in_call = Semaphore(1)
-#throw = Semaphore(1)
+#--------------------------------
 
+#-----Global Variables-----------
 stash = int(input('Initial Stash Size:'))
 #print 'stash: %d' % stash
 N = int(input('Number of disc per bucket:'))
@@ -20,8 +21,11 @@ disc_on_field = 0
 started_cnt = 0;
 stopped_cnt = 0;
 flag = False;
-mylist = [0]*500
+mylist = [0]*frolfers
 myfrolfercall = [0]*frolfers
+rng = random.Random()
+rng.seed(100)
+#--------------------------------
 
 
 def frolfer(seq):
@@ -32,6 +36,7 @@ def frolfer(seq):
     global stopped_cnt
     global mylist
     global myfrolfercall
+    global rng
     #sleep(1)
     while True:
         #sleep(1)
@@ -55,7 +60,7 @@ def frolfer(seq):
                 print ("Frolfer ",seq," got ",N," discs; Stash = ",stash)
         #calling.release()
         in_call.release()
-        sleep(1)
+        sleep(rng.random())
         for i in range(0,N_got):
 
             if(flag): #if cart is in, stops immediately
@@ -82,7 +87,8 @@ def cart():
         cart_go.acquire()#locks the cart in the beginning
         #can_throw.acquire()
         total_disc = stash + disc_on_field
-        print ("Total Discs: ",total_disc + mylist[0]+mylist[1]+mylist[2])
+        #for i in range(frolfers):
+        #print ("Total Discs: ",total_disc + mylist[0]+mylist[1]+mylist[2])
         print ("################################################################################")
         print ("Stash = ",stash,"; Cart entering field")
         #cart_on_field.acquire()
@@ -105,5 +111,5 @@ if __name__ == '__main__':
         fr = Thread(target = frolfer, args =(frolfer_seq,))
         fr.start()
         frolfer_seq += 1
-    fr.join()
+    #fr.join()
 
