@@ -9,8 +9,9 @@ import sys
 import logging
 
 
-#P = int(input('pid of Philosophers:'))
-#M = int(input('pid of Max Meals:'))
+#P = int(input('Total of Philosophers:'))
+#M = int(input('Max Meals:'))
+#tested works in cmdline
 P = int(sys.argv[1])
 M = int(sys.argv[2])
 print ("Running dining philosophers simulation: ",P," philosophers, ",M," meals each")
@@ -140,15 +141,14 @@ def tanenbaum_solution(pid):
     global done_phils_Tanenbaums
     global state
     while done_phils_Tanenbaums != P:
-        if(counter_Tanenbaums[pid] != M):
+        if (counter_Tanenbaums[pid] == M):
+            pass
+        else:
             get_Tane_fork(pid)
-            if state[pid] == "eating" :
-                counter_Tanenbaums[pid] += 1
+            if (state[pid] == "eating"):
                 if (counter_Tanenbaums[pid] == M):
                     done_phils_Tanenbaums += 1  
                 put_Tane_fork(pid)
-        else:
-            pass
 
 def get_Tane_fork(i):
     mutex.acquire()
@@ -169,6 +169,7 @@ def test(i):
     global state
     if (state[i] == "hungry" and state[left(i)] != "eating" and state[right(i)] != "eating"):
         state[i] = "eating"
+        counter_Tanenbaums[i] += 1
         sem[i].release()     # this signals me OR a neighbor
         
 def totime_tanenbaum():
@@ -181,4 +182,6 @@ def totime_tanenbaum():
 timer_3 = Timer(totime_tanenbaum)
 print("3. Tanenbaum's solution, time elapsed: ", timer_3.timeit(1))
 #--------------------------------
-    
+
+while True:
+    sleep(1)
