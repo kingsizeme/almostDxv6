@@ -9,11 +9,11 @@ import sys
 import logging
 
 
-#P = int(input('Total of Philosophers:'))
-#M = int(input('Max Meals:'))
+P = int(input('Total of Philosophers:'))
+M = int(input('Max Meals:'))
 #tested works in cmdline
-P = int(sys.argv[1])
-M = int(sys.argv[2])
+#P = int(sys.argv[1])
+#M = int(sys.argv[2])
 print ("Running dining philosophers simulation: ",P," philosophers, ",M," meals each")
 
 #-----Global Variables-----------
@@ -137,6 +137,10 @@ print ("2. Left_handed solution, time elapsed: ",timer_2.timeit(1))
 #--------------------------------
 
 #--The Tanenbaum solution--------
+def tane_left(i):
+    global P
+    return (P + i - 1)%P
+
 def tanenbaum_solution(pid):
     global counter_Tanenbaums
     global M
@@ -146,12 +150,8 @@ def tanenbaum_solution(pid):
         if(counter_Tanenbaums[pid] != M):
             get_Tane_fork(pid)
             if state[pid] == "eating" :
-                if (counter_Tanenbaums[pid] == M):
-                    done_phils_Tanenbaums += 1  
-                    #print ("done added", done_phils_Tanenbaums)
                 put_Tane_fork(pid)
-        else:
-            pass
+        pass
 
 def get_Tane_fork(i):
     mutex.acquire()
@@ -164,16 +164,19 @@ def put_Tane_fork(i):
     mutex.acquire()
     state[i] = "thinking"
     test(right(i)) # signal neighbors if they can eat
-    test(left(i))
+    test(tane_left(i))
     mutex.release() 
 
 # Check state : check if the philosopher can eat
 def test(i):
     global state
     global counter_Tanenbaums
-    if (state[i] == "hungry" and state[left(i)] != "eating" and state[right(i)] != "eating"):
+    if (state[i] == "hungry" and state[tane_left(i)] != "eating" and state[right(i)] != "eating"):
         state[i] = "eating"
         counter_Tanenbaums[i] += 1
+        if (counter_Tanenbaums[i] == M):
+            done_phils_Tanenbaums += 1  
+            #print ("done added", done_phils_Tanenbaums)        
         sem[i].release()     # this signals me OR a neighbor
         
 def totime_tanenbaum():
