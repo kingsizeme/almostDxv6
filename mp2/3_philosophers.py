@@ -9,11 +9,11 @@ import sys
 import logging
 
 
-P = int(input('Total of Philosophers:'))
-M = int(input('Max Meals:'))
+#P = int(input('Total of Philosophers:'))
+#M = int(input('Max Meals:'))
 #tested works in cmdline
-#P = int(sys.argv[1])
-#M = int(sys.argv[2])
+P = int(sys.argv[1])
+M = int(sys.argv[2])
 print ("Running dining philosophers simulation: ",P," philosophers, ",M," meals each")
 
 #-----Global Variables-----------
@@ -51,6 +51,7 @@ def left(i):
 def right(i):
     global P
     return (i+1) % P
+
 #--------------------------------
 
 #-The "footman" solution---------
@@ -68,8 +69,6 @@ def footman_solution(pid):
                 done_phils_foot += 1
                 #print ("done added", done_phils_foot)
             put_forks(pid)
-        else:
-            pass
     
 def get_forks(i):
     footman.acquire()
@@ -148,34 +147,38 @@ def tanenbaum_solution(pid):
     global state
     while done_phils_Tanenbaums != P:
         if(counter_Tanenbaums[pid] != M):
-            get_Tane_fork(pid)
-            if state[pid] == "eating" :
+            if(state[pid] == "thinking"):
+                get_Tane_fork(pid)
                 put_Tane_fork(pid)
         pass
 
 def get_Tane_fork(i):
     mutex.acquire()
-    state[i] = "hungry"
-    test(i) # check neighbors states
+    if (state[i]!="done"):
+        state[i] = "hungry"
+        test(i) # check neighbors states
     mutex.release()
     sem[i].acquire() # wait on my own semaphore
     
 def put_Tane_fork(i):
     mutex.acquire()
-    state[i] = "thinking"
-    test(right(i)) # signal neighbors if they can eat
-    test(tane_left(i))
+    if (state[i]!="done"):
+        state[i] = "thinking"
+        test(right(i)) # signal neighbors if they can eat
+        test(tane_left(i))
     mutex.release() 
 
 # Check state : check if the philosopher can eat
 def test(i):
     global state
     global counter_Tanenbaums
+    global done_phils_Tanenbaums
     if (state[i] == "hungry" and state[tane_left(i)] != "eating" and state[right(i)] != "eating"):
         state[i] = "eating"
         counter_Tanenbaums[i] += 1
         if (counter_Tanenbaums[i] == M):
             done_phils_Tanenbaums += 1  
+            state[i] = "done"
             #print ("done added", done_phils_Tanenbaums)        
         sem[i].release()     # this signals me OR a neighbor
         
