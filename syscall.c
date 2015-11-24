@@ -98,7 +98,7 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int sys_threadmycreate(void);
+extern int sys_thread_init(void);
 extern int sys_thread_join(void);
 //def of getcount
 int
@@ -137,7 +137,7 @@ static int (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_getcount] sys_getcount,
-[SYS_threadmycreate] sys_threadmycreate,
+[SYS_thread_init] sys_thread_init,
 [SYS_thread_join] sys_thread_join
 };
 

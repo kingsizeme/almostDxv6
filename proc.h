@@ -68,6 +68,7 @@ struct proc {
   char name[16];               // Process name (debugging)
   int try_init;                // Check for initialization
   int counters[22];            // Counters to store counting information
+  int thread_flag;             // Flags if the 'process' is created as a thread and shared the same space address
 };
 
 // Process memory is laid out contiguously, low addresses first:

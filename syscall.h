@@ -21,5 +21,5 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_getcount 22
-#define SYS_threadmycreate 23
+#define SYS_thread_init 23
 #define SYS_thread_join 24
