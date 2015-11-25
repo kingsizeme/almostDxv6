@@ -23,7 +23,8 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int getcount(int);
-int thread_init(void *)
+int thread_create(void *, void *, void *);
+int thread_join(void *);
 
 // ulib.c
 int stat(char*, struct stat*);

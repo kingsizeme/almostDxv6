@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -100,7 +101,8 @@ userinit(void)
   p->cwd = namei("/");
 
   p->try_init = -1;
-  p->thread_flag = 0;
+  p->is_init = 1;
+  //p->thread_flag = 0;
 
   p->state = RUNNABLE;
 }
@@ -161,20 +163,20 @@ int thread_fork(void * stack){
 }
 
 int
-thread_create(void (*tmain)(void *), void *stack, void *arg)
+sys_thread_create(void (*tmain)(void *), void *stack, void *arg)
 {
   int pid = thread_fork(stack); // 1st step, necessary logic to clone parent 
 
   if(pid == 0){ // if successful, then call the function with arguments passed in
-    (*start_routine)(arg);
+    (tmain)(arg);
   }
-  else
-    return pid
+  
+  return pid;
 
 }
 
 int
-thread_join(void **stack)
+sys_thread_join(void **stack)
 {
   struct proc *p;
   int havekids, pid;
@@ -186,7 +188,7 @@ thread_join(void **stack)
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->parent != proc)
         continue;
-      if ((p->kstack == &stack) && (p->thread_flag == 1)){
+      if (p->kstack == (char*)&stack){
         havekids = 1;
         if(p->state == ZOMBIE){
           // Found one.
@@ -240,6 +242,7 @@ fork(void)
   np->parent = proc;
   *np->tf = *proc->tf;
   np->try_init = -1; // initialize data structure for new process
+  np->is_init = 0;
 
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
@@ -309,14 +312,15 @@ wait(void)
 {
   struct proc *p;
   int havekids, pid;
-
+  cprintf("check wait init");
   acquire(&ptable.lock);
   for(;;){
     // Scan through table looking for zombie children.
     havekids = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if ((p->parent != proc) || (p->thread_flag == 0))
+      if ((p->parent != proc))
         continue;
+      
       havekids = 1;
       if(p->state == ZOMBIE){
         // Found one.

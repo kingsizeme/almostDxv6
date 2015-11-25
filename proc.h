@@ -69,6 +69,7 @@ struct proc {
   int try_init;                // Check for initialization
   int counters[22];            // Counters to store counting information
   int thread_flag;             // Flags if the 'process' is created as a thread and shared the same space address
+  int is_init;
 };
 
 // Process memory is laid out contiguously, low addresses first:
